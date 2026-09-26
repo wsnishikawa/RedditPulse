@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reddit Automation Pulse | Top Posts n8n & Automação</title>
+  <meta name="description" content="Dashboard moderno com a curadoria dos posts mais relevantes e de maior engajamento do Reddit sobre n8n e automação.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient background glow effects -->
+  <div class="ambient-glow glow-coral"></div>
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-container">
+    
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Reddit<span class="brand-highlight">Pulse</span></span>
+          <span class="brand-tag">Intelligence Hub</span>
+        </div>
+      </div>
+
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="status-label">Base de 200 Posts Analisados</span>
+        <span class="status-badge">Tempo Real</span>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-pill">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Curadoria Estratégica de Engajamento</span>
+      </div>
+
+      <h1 class="hero-title">
+        Os Posts Mais Relevantes de <br>
+        <span class="gradient-text-coral">n8n</span> & <span class="gradient-text-cyan">Automação</span>
+      </h1>
+      
+      <p class="hero-description">
+        Monitoramento analítico das principais discussões, fluxos e desafios no Reddit. 
+        Rankeamento calculado pela soma ponderada de <strong>Upvotes</strong> e <strong>Discussões Ativas (Comentários)</strong>.
+      </p>
+
+      <!-- KPI Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Maior Engajamento n8n</span>
+            <span class="stat-icon stat-icon-coral">#1</span>
+          </div>
+          <div class="stat-value" id="kpi-n8n-top">109</div>
+          <div class="stat-sub">u/cuebicai • Instagram DM Workflow</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Maior Engajamento Automação</span>
+            <span class="stat-icon stat-icon-cyan">#1</span>
+          </div>
+          <div class="stat-value" id="kpi-auto-top">75</div>
+          <div class="stat-sub">u/Signal-Heron5805 • AI Agents vs RPA</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Total de Posts Minerados</span>
+            <span class="stat-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </span>
+          </div>
+          <div class="stat-value">200</div>
+          <div class="stat-sub">100 por comunidade (r/n8n & r/automation)</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-label">Taxa de Upvote Média</span>
+            <span class="stat-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                <polyline points="16 7 22 7 22 13"></polyline>
+              </svg>
+            </span>
+          </div>
+          <div class="stat-value">94.8%</div>
+          <div class="stat-sub">Alto índice de aprovação da comunidade</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Area: Tabs & Controls -->
+    <main class="content-section">
+      
+      <!-- Interactive Tab Controls -->
+      <div class="tabs-header-wrapper">
+        <div class="tabs-container" role="tablist" aria-label="Tópicos de automação">
+          <button 
+            class="tab-btn active" 
+            id="tab-n8n" 
+            role="tab" 
+            aria-selected="true" 
+            aria-controls="panel-n8n"
+            data-topic="n8n"
+          >
+            <div class="tab-btn-content">
+              <span class="tab-icon tab-icon-coral">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              </span>
+              <span class="tab-title">Posts sobre n8n</span>
+              <span class="tab-counter-badge" id="badge-n8n-count">5 posts</span>
+            </div>
+            <div class="tab-indicator"></div>
+          </button>
+
+          <button 
+            class="tab-btn" 
+            id="tab-automation" 
+            role="tab" 
+            aria-selected="false" 
+            aria-controls="panel-automation"
+            data-topic="automation"
+          >
+            <div class="tab-btn-content">
+              <span class="tab-icon tab-icon-cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </span>
+              <span class="tab-title">Posts sobre Automação</span>
+              <span class="tab-counter-badge" id="badge-auto-count">5 posts</span>
+            </div>
+            <div class="tab-indicator"></div>
+          </button>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="toolbar">
+          <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Filtrar por título, autor ou tema..."
+              aria-label="Buscar posts"
+            >
+            <button id="clear-search-btn" class="clear-btn" aria-label="Limpar busca" style="display: none;">
+              &times;
+            </button>
+          </div>
+
+          <div class="sort-wrapper">
+            <label for="sort-select" class="sort-label">Ordenar:</label>
+            <select id="sort-select" class="sort-select" aria-label="Critério de ordenação">
+              <option value="engagement" selected>Maior Engajamento</option>
+              <option value="score">Mais Upvotes</option>
+              <option value="comments">Mais Comentários</option>
+              <option value="recent">Mais Recentes</option>
+            </select>
+          </div>
+
+          <div class="view-toggle-wrapper">
+            <button id="toggle-view-btn" class="toggle-view-btn" data-mode="top5" title="Alternar entre Top 5 e os 100 posts minerados">
+              <span class="toggle-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </span>
+              <span id="toggle-view-text">Ver Todos (100)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Topic Header Information -->
+      <div class="topic-banner" id="topic-banner">
+        <div class="topic-banner-info">
+          <span class="topic-badge" id="topic-badge">r/n8n Community</span>
+          <h2 class="topic-heading" id="topic-heading">Top 5 Posts Mais Relevantes: n8n</h2>
+          <p class="topic-desc" id="topic-desc">
+            Fluxos de trabalho práticos, automações com IA local, RAG sem custos de nuvem e integração com APIs externas.
+          </p>
+        </div>
+        <div class="topic-banner-actions">
+          <a href="#" id="topic-download-csv" class="download-link" title="Baixar CSV deste tópico">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Exportar CSV
+          </a>
+        </div>
+      </div>
+
+      <!-- Posts Cards Grid Container -->
+      <div class="posts-grid" id="posts-container" role="tabpanel" aria-live="polite">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+
+      <!-- Empty Search State -->
+      <div class="empty-state" id="empty-state" style="display: none;">
+        <div class="empty-icon">🔍</div>
+        <h3>Nenhum post encontrado</h3>
+        <p>Tente buscar por outro termo ou limpe o filtro de pesquisa.</p>
+        <button class="btn-secondary" id="reset-filter-btn">Redefinir Filtros</button>
+      </div>
+
+    </main>
+
+    <!-- Detailed Modal for Post Reading -->
+    <div class="modal-backdrop" id="post-modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-badges">
+            <span class="rank-tag" id="modal-rank">#1</span>
+            <span class="sub-tag" id="modal-subreddit">r/n8n</span>
+            <span class="date-tag" id="modal-date">23/09/2026</span>
+          </div>
+          <button class="modal-close-btn" id="modal-close-btn" aria-label="Fechar janela">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <h2 class="modal-title" id="modal-title">Título do Post</h2>
+          
+          <div class="modal-meta">
+            <div class="modal-author">
+              <span class="author-avatar" id="modal-avatar">U</span>
+              <span id="modal-author-name">u/autor</span>
+            </div>
+            
+            <div class="modal-stats-pills">
+              <span class="pill pill-engagement">
+                <strong>Engajamento:</strong> <span id="modal-engagement">0</span>
+              </span>
+              <span class="pill pill-upvotes">
+                ▲ <span id="modal-score">0</span> upvotes
+              </span>
+              <span class="pill pill-comments">
+                💬 <span id="modal-comments">0</span> comentários
+              </span>
+              <span class="pill pill-ratio">
+                <span id="modal-ratio">100%</span> aprovação
+              </span>
+            </div>
+          </div>
+
+          <div class="modal-section-title">Análise Estratégica & Contexto</div>
+          <div class="modal-curated-analysis" id="modal-analysis">
+            <!-- Análise estruturada do caso -->
+          </div>
+
+          <div class="modal-section-title">Texto Original Publicado</div>
+          <div class="modal-content-box" id="modal-content">
+            <!-- Texto bruto do post do Reddit -->
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-secondary" id="modal-copy-link-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-btn-text">Copiar Link</span>
+          </button>
+
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" id="modal-reddit-link">
+            <span>Abrir no Reddit</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive">
+      <span class="toast-icon">✓</span>
+      <span class="toast-message" id="toast-message">Link copiado para a área de transferência!</span>
+    </div>
+
+    <!-- Site Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-logo">RedditPulse Analytics</div>
+          <p class="footer-text">
+            Dashboard de inteligência de mercado com dados extraídos de comunidades públicas do Reddit. 
+            Desenvolvido com HTML5, CSS3 Moderno e Vanilla JavaScript.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <span class="footer-title">Downloads Disponíveis</span>
+          <div class="download-badges">
+            <a href="posts_n8n_100.csv" download class="file-badge">CSV n8n (100)</a>
+            <a href="posts_automacao_100.csv" download class="file-badge">CSV Automação (100)</a>
+            <a href="posts_n8n_100.json" download class="file-badge">JSON Completo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Projeto de Automação & Mineração Reddit. Todos os direitos reservados aos autores dos posts.</span>
+        <span class="footer-version">v2.0 • Ultra Modern UI</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
